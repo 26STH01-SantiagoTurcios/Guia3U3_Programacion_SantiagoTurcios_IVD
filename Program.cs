@@ -1,21 +1,21 @@
 ﻿using System;
 
-namespace ControlInventario
+namespace RegistroParqueo
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string[,] inventario = new string[10, 3];
+            string[,] parqueo = new string[10, 3];
             int opcion = 0;
 
             while (opcion != 5)
             {
                 Console.WriteLine("\n----- MENÚ -----");
-                Console.WriteLine("1. Registrar producto");
-                Console.WriteLine("2. Mostrar productos");
-                Console.WriteLine("3. Actualizar producto");
-                Console.WriteLine("4. Eliminar producto");
+                Console.WriteLine("1. Registrar vehículo");
+                Console.WriteLine("2. Mostrar vehículos");
+                Console.WriteLine("3. Actualizar vehículo");
+                Console.WriteLine("4. Eliminar vehículo");
                 Console.WriteLine("5. Salir");
                 Console.Write("Seleccione una opción: ");
 
@@ -27,97 +27,73 @@ namespace ControlInventario
                             bool registrado = false;
                             for (int i = 0; i < 10; i++)
                             {
-                                if (string.IsNullOrEmpty(inventario[i, 0]))
+                                if (string.IsNullOrEmpty(parqueo[i, 0]))
                                 {
-                                    Console.Write("Ingrese el código del producto: ");
-                                    inventario[i, 0] = Console.ReadLine();
-
-                                    Console.Write("Ingrese el nombre del producto: ");
-                                    inventario[i, 1] = Console.ReadLine();
-
-                                    Console.Write("Ingrese la cantidad en existencia: ");
-                                    inventario[i, 2] = Console.ReadLine();
-
-                                    Console.WriteLine("¡Producto registrado con éxito!");
+                                    Console.Write("Ingrese la placa: ");
+                                    parqueo[i, 0] = Console.ReadLine();
+                                    Console.Write("Ingrese el propietario: ");
+                                    parqueo[i, 1] = Console.ReadLine();
+                                    Console.Write("Ingrese la marca: ");
+                                    parqueo[i, 2] = Console.ReadLine();
+                                    Console.WriteLine("¡Vehículo registrado!");
                                     registrado = true;
                                     break;
                                 }
                             }
-
-                            if (!registrado)
-                            {
-                                Console.WriteLine("El inventario está lleno. No se pueden registrar más productos.");
-                            }
+                            if (!registrado) Console.WriteLine("El parqueo está lleno.");
                             break;
 
                         case 2:
-                            Console.WriteLine("\n--- Lista de Productos ---");
-                            bool hayProductos = false;
+                            Console.WriteLine("\n--- Vehículos Registrados ---");
+                            bool hayVehiculos = false;
                             for (int i = 0; i < 10; i++)
                             {
-                                if (!string.IsNullOrEmpty(inventario[i, 0]))
+                                if (!string.IsNullOrEmpty(parqueo[i, 0]))
                                 {
-                                    Console.WriteLine($"Código: {inventario[i, 0]} | Nombre: {inventario[i, 1]} | Cantidad: {inventario[i, 2]}");
-                                    hayProductos = true;
+                                    Console.WriteLine($"Placa: {parqueo[i, 0]} | Propietario: {parqueo[i, 1]} | Marca: {parqueo[i, 2]}");
+                                    hayVehiculos = true;
                                 }
                             }
-
-                            if (!hayProductos)
-                            {
-                                Console.WriteLine("No hay productos registrados en el inventario.");
-                            }
+                            if (!hayVehiculos) Console.WriteLine("No hay vehículos en el parqueo.");
                             break;
 
                         case 3:
-                            Console.Write("\nIngrese el código del producto a actualizar: ");
-                            string codigoBusqueda = Console.ReadLine();
-                            bool encontradoActualizar = false;
-
+                            Console.Write("\nIngrese la placa del vehículo a actualizar: ");
+                            string placaBuscar = Console.ReadLine();
+                            bool encontradoAct = false;
                             for (int i = 0; i < 10; i++)
                             {
-                                if (inventario[i, 0] == codigoBusqueda)
+                                if (parqueo[i, 0] == placaBuscar)
                                 {
-                                    Console.Write("Ingrese el nuevo nombre del producto: ");
-                                    inventario[i, 1] = Console.ReadLine();
-
-                                    Console.Write("Ingrese la nueva cantidad en existencia: ");
-                                    inventario[i, 2] = Console.ReadLine();
-
-                                    Console.WriteLine("¡Producto actualizado correctamente!");
-                                    encontradoActualizar = true;
+                                    Console.Write("Ingrese el nuevo propietario: ");
+                                    parqueo[i, 1] = Console.ReadLine();
+                                    Console.Write("Ingrese la nueva marca: ");
+                                    parqueo[i, 2] = Console.ReadLine();
+                                    Console.WriteLine("¡Registro actualizado!");
+                                    encontradoAct = true;
                                     break;
                                 }
                             }
-
-                            if (!encontradoActualizar)
-                            {
-                                Console.WriteLine("Producto no encontrado.");
-                            }
+                            if (!encontradoAct) Console.WriteLine("Vehículo no encontrado.");
                             break;
 
                         case 4:
-                            Console.Write("\nIngrese el código del producto a eliminar: ");
-                            string codigoEliminar = Console.ReadLine();
-                            bool encontradoEliminar = false;
-
+                            Console.Write("\nIngrese la placa del vehículo a eliminar: ");
+                            string placaEliminar = Console.ReadLine();
+                            bool encontradoElim = false;
                             for (int i = 0; i < 10; i++)
                             {
-                                if (inventario[i, 0] == codigoEliminar)
+                                if (parqueo[i, 0] == placaEliminar)
                                 {
-                                    inventario[i, 0] = null;
-                                    inventario[i, 1] = null;
-                                    inventario[i, 2] = null;
-
-                                    Console.WriteLine("¡Producto eliminado exitosamente!");
-                                    encontradoEliminar = true;
+                                    parqueo[i, 0] = null;
+                                    parqueo[i, 1] = null;
+                                    parqueo[i, 2] = null;
+                                    Console.WriteLine("¡Vehículo eliminado (salida)! ");
+                                    encontradoElim = true;
                                     break;
                                 }
                             }
-
-                            if (!encontradoEliminar)
-                            {
-                                Console.WriteLine("Producto no encontrado.");
-                            }
+                            if (!encontradoElim) Console.WriteLine("Vehículo no encontrado.");
                             break;
 
                         case 5:
@@ -125,13 +101,13 @@ namespace ControlInventario
                             break;
 
                         default:
-                            Console.WriteLine("Opción no válida. Intente de nuevo.");
+                            Console.WriteLine("Opción no válida.");
                             break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Por favor, ingrese un número válido.");
+                    Console.WriteLine("Ingrese un número válido.");
                 }
             }
         }
